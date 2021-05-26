@@ -4,8 +4,8 @@ module.exports = {
   async index(req, res) {
     const students = await Student.findAll({
       include: {
-        model: Course
-      }
+        model: Course,
+      },
     });
 
     res.json(students);
@@ -43,12 +43,16 @@ module.exports = {
       where: { cpf }
     });
 
-    
+
     if (student == null) {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    const courses = await student.getCourses();
+    const courses = await student.getCourses({
+      order: [
+        ["start_date", "DESC"]
+      ]
+    });
 
     return res.json({ student, courses, name });
   },

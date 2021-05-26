@@ -14,15 +14,15 @@ module.exports = {
     dialect: "postgres"
   },
   test: {
-     username,
+    username,
     password,
     database,
     host,
     dialect: "mysql"
   },
   production: {
-    username: "mysql11388",
-    password: "5FklvCLhv1u6Kbh",
+    username: "root",
+    password: "!nL3oCN(r*AdmCe8",
     database: "ger_cert",
     host: "localhost",
     dialect: "mysql"

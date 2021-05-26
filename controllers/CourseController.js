@@ -15,7 +15,7 @@ module.exports = {
   },
 
   async create(req, res) {
-    
+
     const {
       name,
       teacher,
@@ -35,7 +35,7 @@ module.exports = {
     // });
 
     const [course, created] = await Course.findOrCreate({
-      where: { 
+      where: {
         name,
         teacher: teacher === '' ? null : teacher,
         category,
@@ -56,9 +56,9 @@ module.exports = {
   async show(req, res) {
     const { id } = req.params;
 
-    const course = await Course.findOne({ 
-      where: { id: id }, 
-      include: { model: Student } 
+    const course = await Course.findOne({
+      where: { id: id },
+      include: { model: Student }
     });
 
     if (course == null) {
@@ -104,7 +104,7 @@ module.exports = {
   },
 
   async delete(req, res) {
-    const {id} = req.params;
+    const { id } = req.params;
 
     try {
       const result = await Course.destroy({
@@ -114,7 +114,7 @@ module.exports = {
       });
 
       return res.json(result);
-    } catch(err) {
+    } catch (err) {
       return res.status(400).json(err);
     }
   }
