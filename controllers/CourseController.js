@@ -117,5 +117,44 @@ module.exports = {
     } catch (err) {
       return res.status(400).json(err);
     }
+  },
+
+  async update(req, res) {
+    const { id } = req.params;
+
+    const {
+      name,
+      teacher,
+      category,
+      hours,
+      start_date,
+      final_date
+    } = req.body;
+
+    const course = await Course.findOne({
+      where: { id: id },
+      include: { model: Student }
+    });
+
+    if (course == null) {
+      return res.status(404).json({ message: 'Course not found' });
+    }
+
+    try {
+      Object.assign(course, {
+        name,
+        teacher,
+        category,
+        hours,
+        start_date,
+        final_date
+      });
+
+      await course.save();
+      return res.json(course);
+
+    } catch (err) {
+      return res.status(400).json(err);
+    }
   }
 };

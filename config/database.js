@@ -1,7 +1,9 @@
 require('dotenv').config();
 
-const username = process.env.USER;
-const password = process.env.PASSWORD;
+const laboroENV = process.env.LABORO_ENV
+
+const username = laboroENV ? process.env.LABORO_USER : process.env.USER;
+const password = laboroENV ? process.env.LABORO_PASSWORD : process.env.PASSWORD;
 const database = process.env.DATABASE;
 const host = process.env.HOST;
 

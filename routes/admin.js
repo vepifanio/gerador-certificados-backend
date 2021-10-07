@@ -51,11 +51,22 @@ router.post('/courses/:id', celebrate({
   })
 }), [authJwt.verifyToken], CourseController.link);
 
+router.put('/courses/:id', celebrate({
+  [Segments.BODY]: Joi.object({
+    name: Joi.string().required(),
+    teacher: Joi.string().allow(''),
+    category: Joi.string().required(),
+    hours: Joi.number().integer().required(),
+    start_date: Joi.date().required(),
+    final_date: Joi.date().allow(''),
+  })
+}), [authJwt.verifyToken], CourseController.update)
+
 router.delete('/courses/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.number().required(),
   })
-}),[authJwt.verifyToken], CourseController.delete);
+}), [authJwt.verifyToken], CourseController.delete);
 
 router.delete('/courses/:id/:student_id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
