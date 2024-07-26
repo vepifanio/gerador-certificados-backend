@@ -23,8 +23,8 @@ module.exports = {
     dialect: "mysql"
   },
   production: {
-    username: "root",
-    password: "!nL3oCN(r*AdmCe8",
+    username: "lab_cert",
+    password: "?Y.0!4W_om5*",
     database: "ger_cert",
     host: "localhost",
     dialect: "mysql"
