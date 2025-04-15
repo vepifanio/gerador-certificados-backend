@@ -32,7 +32,8 @@ router.post('/students/:id', celebrate({
 
 router.get('/courses', celebrate({
   [Segments.QUERY]: Joi.object({
-    page: Joi.number().optional().default(1).min(1)
+    page: Joi.number().optional().default(1).min(1),
+    name: Joi.string().optional().min(3)
   })
 }), [authJwt.verifyToken], CourseController.index);
 

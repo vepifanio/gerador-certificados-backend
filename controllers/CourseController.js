@@ -1,15 +1,25 @@
+const { Op, where } = require('sequelize');
 const { Course, Student } = require('../app/models');
 
 const LIMIT = 10;
 
 module.exports = {
   async index(req, res) {
-    const { page } = req.query;
+    const { page, name } = req.query;
+
+    const whereCondition = {};
+
+    if (name) {
+      whereCondition.name = {
+        [Op.like]: `%${name}%`
+      }
+    }
 
     const { count, rows } = await Course.findAndCountAll({
       include: {
         model: Student
       },
+      where: whereCondition,
       limit: LIMIT,
       offset: LIMIT * (page - 1),
       order: [
