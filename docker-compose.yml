@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: bitnami/mysql:8.0
+    container_name: mysql-certificados-dev
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=certificados
+      - MYSQL_USER=laboro
+      - MYSQL_PASSWORD=laboro
+      - ALLOW_EMPTY_PASSWORD=no
+    volumes:
+      - mysql_data:/bitnami/mysql
+    networks:
+      - dev-net
+  
+volumes:
+  mysql_data:
+
+networks:
+  dev-net:

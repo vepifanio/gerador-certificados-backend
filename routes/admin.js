@@ -30,7 +30,11 @@ router.post('/students/:id', celebrate({
   })
 }), [authJwt.verifyToken], StudentController.link);
 
-router.get('/courses', [authJwt.verifyToken], CourseController.index);
+router.get('/courses', celebrate({
+  [Segments.QUERY]: Joi.object({
+    page: Joi.number().optional().default(1).min(1)
+  })
+}), [authJwt.verifyToken], CourseController.index);
 
 router.post('/courses', celebrate({
   [Segments.BODY]: Joi.object({
