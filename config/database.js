@@ -1,11 +1,9 @@
 require('dotenv').config();
 
-const laboroENV = process.env.LABORO_ENV
-
-const username = laboroENV ? process.env.LABORO_USER : process.env.USER;
-const password = laboroENV ? process.env.LABORO_PASSWORD : process.env.PASSWORD;
-const database = process.env.DATABASE;
-const host = process.env.HOST;
+const username = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
+const database = process.env.DB_NAME;
+const host = process.env.DB_HOST;
 
 module.exports = {
   development: {
@@ -13,7 +11,7 @@ module.exports = {
     password,
     database,
     host,
-    dialect: "postgres"
+    dialect: "mysql"
   },
   test: {
     username,
@@ -23,10 +21,17 @@ module.exports = {
     dialect: "mysql"
   },
   production: {
-    username: "lab_cert",
-    password: "?Y.0!4W_om5*",
-    database: "ger_cert",
-    host: "localhost",
+    username,
+    password,
+    database,
+    host,
     dialect: "mysql"
   }
+  // production: {
+  //   username: "lab_cert",
+  //   password: "?Y.0!4W_om5*",
+  //   database: "ger_cert",
+  //   host: "localhost",
+  //   dialect: "mysql"
+  // }
 }

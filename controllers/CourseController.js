@@ -1,17 +1,41 @@
+const { Op, where } = require('sequelize');
 const { Course, Student } = require('../app/models');
+
+const LIMIT = 10;
 
 module.exports = {
   async index(req, res) {
-    const courses = await Course.findAll({
+    const { page, name } = req.query;
+
+    const whereCondition = {};
+
+    if (name) {
+      whereCondition.name = {
+        [Op.like]: `%${name}%`
+      }
+    }
+
+    const { count, rows } = await Course.findAndCountAll({
       include: {
         model: Student
       },
+      where: whereCondition,
+      limit: LIMIT,
+      offset: LIMIT * (page - 1),
       order: [
-        ['id', 'ASC'],
+        ['createdAt', 'DESC'],
       ]
     });
 
-    res.json(courses);
+    const totalPages = Math.ceil(count / LIMIT)
+
+    res.json({
+      data: rows,
+      page,
+      limit: LIMIT,
+      totalPages,
+      totalItems: count
+    });
   },
 
   async create(req, res) {
@@ -24,15 +48,6 @@ module.exports = {
       start_date,
       final_date = null
     } = req.body;
-
-    // const course = await Course.create({
-    //   name,
-    //   teacher,
-    //   category,
-    //   hours,
-    //   start_date,
-    //   final_date,
-    // });
 
     const [course, created] = await Course.findOrCreate({
       where: {
