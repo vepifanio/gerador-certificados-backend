@@ -1,4 +1,4 @@
-const { Student, Course } = require('../app/models');
+const { Student, Course } = require('../models');
 
 module.exports = {
   async index(req, res) {

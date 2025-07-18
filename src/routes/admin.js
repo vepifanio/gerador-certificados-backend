@@ -1,6 +1,6 @@
 const express = require('express');
 const { celebrate, Segments, Joi } = require('celebrate');
-const { authJwt } = require('../app/middlewares');
+const { authJwt } = require('../middlewares');
 const StudentController = require('../controllers/StudentController');
 const CourseController = require('../controllers/CourseController');
 

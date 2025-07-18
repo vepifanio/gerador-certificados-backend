@@ -27,11 +27,4 @@ module.exports = {
     host,
     dialect: "mysql"
   }
-  // production: {
-  //   username: "lab_cert",
-  //   password: "?Y.0!4W_om5*",
-  //   database: "ger_cert",
-  //   host: "localhost",
-  //   dialect: "mysql"
-  // }
 }

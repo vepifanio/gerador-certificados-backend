@@ -1,5 +1,5 @@
-const { Op, where } = require('sequelize');
-const { Course, Student } = require('../app/models');
+const { Op } = require('sequelize');
+const { Course, Student } = require('../models');
 
 const LIMIT = 10;
 
