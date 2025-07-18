@@ -69,7 +69,7 @@ Content-Type: application/json
 x-access-token: {{token}}
 
 {
-  "name": "Course Name",
+  "name": "Curso Novo",
   "teacher": "Teacher Name",
   "category": "Course Category",
   "hours": 40,

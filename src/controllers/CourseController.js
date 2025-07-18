@@ -1,40 +1,24 @@
 const { Course, Student } = require('../models');
+const { createCourse } = require('../services/course/createCourse');
 const { listCourses } = require('../services/course/listCourses');
 
 module.exports = {
   async index(req, res) {
-    const result = await listCourses(req.query)
-    return res.json(result)
+    const result = await listCourses(req.query);
+    return res.json(result);
   },
 
   async create(req, res) {
-
-    const {
-      name,
-      teacher,
-      category,
-      hours,
-      start_date,
-      final_date = null
-    } = req.body;
-
-    const [course, created] = await Course.findOrCreate({
-      where: {
-        name,
-        teacher: teacher === '' ? null : teacher,
-        category,
-        hours,
-        start_date,
-        final_date: final_date === '' ? null : final_date
+    try {
+      const result = await createCourse(req.body);
+      return res.json(result);
+    } catch (error) {
+      if (error.message === "Course already exists") {
+        return res.status(409).json({ message: error.message });
       }
-    });
 
-    if (!created) {
-      return res.status(409).json({ message: 'Course already exists' });
+      return res.status(500).json({ message: error.message });
     }
-
-    return res.json(course);
-
   },
 
   async show(req, res) {
