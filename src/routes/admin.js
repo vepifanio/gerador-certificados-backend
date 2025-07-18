@@ -6,7 +6,7 @@ const CourseController = require('../controllers/CourseController');
 
 const router = express.Router();
 
-router.use((req, res, next) => {
+router.use((_req, res, next) => {
   res.header(
     "Access-Control-Allow-Headers",
     "x-acess-token, Origin, Content-Type, Accept"

@@ -4,7 +4,7 @@ const AuthController = require('../controllers/AuthController');
 
 const router = express.Router();
 
-router.use((req, res, next) => {
+router.use((_req, res, next) => {
   res.header(
     'Acesss-Control-Allow-Headers',
     'x-access-token, Origin, Content-Type, Accept'
