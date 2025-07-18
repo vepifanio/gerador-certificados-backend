@@ -1,0 +1,90 @@
+@baseUrl = http://localhost:3333
+
+### Auth Routes
+
+# Login
+# @name signin
+POST {{baseUrl}}/auth/signin
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
+@token = {{signin.response.body.accessToken}}
+
+### Admin Routes
+
+# List all students
+# @name listStudents
+GET {{baseUrl}}/admin/students
+x-access-token: {{token}}
+
+###
+
+# Create a student
+# @name createStudent
+POST {{baseUrl}}/admin/students
+Content-Type: application/json
+x-access-token: {{token}}
+
+{
+  "cpf": "12345678901"
+}
+
+###
+
+# Get student by ID
+# @name getStudent
+GET {{baseUrl}}/admin/students/1
+x-access-token: {{token}}
+
+###
+
+# Link student to course
+# @name linkStudentToCourse
+POST {{baseUrl}}/admin/students/1
+Content-Type: application/json
+x-access-token: {{token}}
+
+{
+  "course_id": 1
+}
+
+###
+
+# List all courses
+# @name listCourses
+GET {{baseUrl}}/admin/courses?page=1
+x-access-token: {{token}}
+
+###
+
+# Create a course
+# @name createCourse
+POST {{baseUrl}}/admin/courses
+Content-Type: application/json
+x-access-token: {{token}}
+
+{
+  "name": "Course Name",
+  "teacher": "Teacher Name",
+  "category": "Course Category",
+  "hours": 40,
+  "start_date": "2025-07-18",
+  "final_date": "2025-08-18"
+}
+
+### Student Routes
+
+# Find student by CPF
+# @name findStudentByCPF
+POST {{baseUrl}}/student
+Content-Type: application/json
+
+{
+  "cpf": "12345678901",
+  "name": "Student Name"
+}
