@@ -26,7 +26,14 @@ module.exports = {
 
     const student = await Student.findOne({
       where: { id: id },
-      include: { model: Course }
+      attributes: ['id', 'cpf', 'createdAt'],
+      include: { 
+        model: Course,
+        attributes: ['id', 'name'],
+        through: {
+          attributes: []
+        }
+      }
     });
 
     if (student == null) {
